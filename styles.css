@@ -1,3 +1,9 @@
+:root {
+    --logo-font-family: "Instrument Serif", serif;
+    --logo-font-weight: 600;
+    --logo-font-size: 16px;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     padding: 0;

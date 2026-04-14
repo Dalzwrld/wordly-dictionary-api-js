@@ -1,7 +1,13 @@
 :root {
     --logo-font-family: "Instrument Serif", serif;
     --logo-font-weight: 600;
-    --logo-font-size: 16px;
+    --logo-font-size: 2rem;
+    --nav-btn-font-family: "DN Sans", sans-serif;
+    --nav-btn-font-weight: 400;
+    --nav-btn-font-size: 1rem;
+    --search-title-font-family: "Instrument Serif", sans-serif;
+    --search-title-font-weight: 800;
+    --search-title-font-size: 2.5rem;
 }
 
 *, *::before, *::after {

@@ -1,0 +1,24 @@
+{
+  "name": "wordly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dalzwrld/wordly-dictionary-api-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dalzwrld/wordly-dictionary-api-js/issues"
+  },
+  "homepage": "https://github.com/Dalzwrld/wordly-dictionary-api-js#readme",
+  "devDependencies": {
+    "jest": "^30.3.0"
+  }
+}

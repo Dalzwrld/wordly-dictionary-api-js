@@ -125,7 +125,9 @@ function renderWord(word) {
             </div>
 
             <div class="word-actions">
-                <button class="icon-btn"></button>
+                <button class="icon-btn ${favoriteWord ? "liked" : ""}" id="favBtn" onclick="toggleFav()" title="${favoriteWord ? "Remove from saved" : "Save word"}">
+                    <svg><svg/>
+                </button>
             </div>
         </div>
     `;

@@ -125,7 +125,7 @@ function renderWord(word) {
             </div>
 
             <div class="word-actions">
-                <button class="icon-btn ${favoriteWord ? "liked" : ""}" id="favBtn" onclick="toggleFav()" title="${favoriteWord ? "Remove from saved" : "Save word"}">
+                <button class="icon-btn ${favoriteWord ? "liked" : ""}" id="favBtn" onclick="switchToFav()" title="${favoriteWord ? "Remove from saved" : "Save word"}">
                     <svg><svg/>
                 </button>
             </div>
@@ -142,5 +142,21 @@ function playAudio() {
     if (currentAudio) {
         currentAudio.currentTime = 0;
         currentAudio.play().catch(() => toast("Audio unavailable"));
+    }
+}
+
+function switchToFav() {
+    if(!currentWord) return;
+    const index = favorites.findIndex(fav => fav.word === currentWord.word);
+
+    if (index > -1) {
+        favorites.splice(index, 1);
+        toast("Removed from saved words");
+    } else {
+        const phonetic = (currentWord.phonetics || []).find(phone => phone.text) || {};
+        const firstSpeechPart = (currentWord.meanings || [])[0]?.partOfSpeech || "";
+        favorites.unshift({ word: currentWord.word, phonetic: phonetic.text || "", partOfSpeech :firstSpeechPart});
+
+        toast("Saved to your word list");
     }
 }

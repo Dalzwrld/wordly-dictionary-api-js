@@ -12,6 +12,13 @@ const favContainer = document.getElementById("fav-panel");
 let currentWord = null;
 let currentAudio = null;
 
+function showTabs(tab) {
+    document.getElementById("search-panel").style.display = tab === "";
+    document.getElementById("");
+    document.getElementById("");
+    document.getElementById("");
+}
+
 searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") searchWord;
 });
@@ -82,7 +89,7 @@ function renderWord(word) {
         const synItems = synonyms.length ? `
             <div class="word-tags">
                 <span class="tag-label">syn.</span>
-                ${synonyms.map(syn => `<span class="tag" onclick="lookupTag("${syn}")">${syn}</span>`).join("")}
+                ${synonyms.map(syn => `<span class="tag" onclick="searchTag("${syn}")">${syn}</span>`).join("")}
             </div>
         ` : "";
 
@@ -90,7 +97,7 @@ function renderWord(word) {
         const antItems = antonyms.length ? `
             <div class="word-tags">
                 <span class="tag-label">ant.</span>
-                ${synonyms.map(ant => `<span class="tag" onclick="lookupTag("${ant}")">${ant}</span>`).join("")}
+                ${synonyms.map(ant => `<span class="tag" onclick="searchTag("${ant}")">${ant}</span>`).join("")}
             </div>
         ` : "";
 
@@ -200,4 +207,23 @@ function renderFavWords() {
             </div>
         `).join("") ;
     }
+}
+
+function removeFav(event, i) {
+    event.stopPropagation();
+    favorites.splice(i, 1);
+    localStorage.setItem("wordly-favs", JSON.stringify(favorites));
+    updateFavBadge();
+    renderFavWords();
+}
+
+function searchFav(word) {
+    document.getElementById("search-input").value = word;
+    
+    searchWord();
+}
+
+function searchTag(word) {
+    document.getElementById("search-input").value = word;
+    searchWord();
 }

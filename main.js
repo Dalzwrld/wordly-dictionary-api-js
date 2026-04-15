@@ -93,6 +93,14 @@ function renderWord(word) {
                 ${synonyms.map(ant => `<span class="tag" onclick="lookupTag("${ant}")">${ant}</span>`).join("")}
             </div>
         ` : "";
-    })
+
+        meaningsItems += `
+            <div class="meaning-panel">
+                <span class="speech-part">${mean.partOfSpeech}</span>
+                <ul class="definitions-list">${defsItems}</ul>
+                ${synItems}${antItems}
+            </div>
+        `;
+    });
 
 }

@@ -154,8 +154,8 @@ function switchToFav() {
         toast("Removed from saved words");
     } else {
         const phonetic = (currentWord.phonetics || []).find(phone => phone.text) || {};
-        const firstSpeechPart = (currentWord.meanings || [])[0]?.partOfSpeech || "";
-        favorites.unshift({ word: currentWord.word, phonetic: phonetic.text || "", partOfSpeech :firstSpeechPart});
+        const firstPOS = (currentWord.meanings || [])[0]?.partOfSpeech || "";
+        favorites.unshift({ word: currentWord.word, phonetic: phonetic.text || "", partOfSpeech :firstPOS});
 
         toast("Saved to your word list");
     }
@@ -177,4 +177,27 @@ function switchToFav() {
 function updateFavBadge() {
     const favBadge = document.getElementById("fav-badge");
     favBadge.textContent = favorites.length ? `(${favorites.length})` : "";
+}
+
+function renderFavWords() {
+    const list = document.getElementById("fav-list");
+    const count = document.getElementById("fav-count-label");
+    count.textContent = favorites.length === 1 ? "1 word" : `${favorites.length} words`;
+
+    if (!favorites.length) {
+        list.innerHTML = `<div class="fav-empty">No saved words yet.<br>Search for a word and tap on the heart to save it.</div>`;
+        return;
+    } else {
+        list.innerHTML =  `<div class="fav-grid></div>` + favorites.map((fav, i)`
+            <div class="fav-item" onclick="searchFav(${fav.phonetic})">
+                <div>
+                    <div class="fav-item-word">${fav.word}</div>
+                    ${fav.phonetic ? `<div class="fav-item-phonetic">${fav.phonetic}</div>` : ""}
+                </div>
+
+                ${fav.partOfSpeech ? `<span class="fav-item-pos">${fav.partOfSpeech}</span>` : ""}
+                <button class="fav-remove" onclick="removeFav(event, ${i})" title="Remove">x</button>
+            </div>
+        `).join("") ;
+    }
 }

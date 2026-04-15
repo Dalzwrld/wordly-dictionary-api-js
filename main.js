@@ -69,7 +69,6 @@ function renderWord(word) {
 
     meaningsObj.forEach(mean => {
         const defs = mean.definitions.slice(0, 4);
-
         const defsItems = defs.map((def, i) => `
             <li class="def-item">
                 <span class="def-num">${i + 1}.</span>
@@ -80,7 +79,20 @@ function renderWord(word) {
             </li>`).join("");
 
         const synonyms = (mean.synonyms || []).slice(0, 6);
+        const synItems = synonyms.length ? `
+            <div class="word-tags">
+                <span class="tag-label">syn.</span>
+                ${synonyms.map(syn => `<span class="tag" onclick="lookupTag("${syn}")">${syn}</span>`).join("")}
+            </div>
+        ` : "";
+
         const antonyms = (mean.antonyms || []).slice(0, 6);
+        const antItems = antonyms.length ? `
+            <div class="word-tags">
+                <span class="tag-label">ant.</span>
+                ${synonyms.map(ant => `<span class="tag" onclick="lookupTag("${ant}")">${ant}</span>`).join("")}
+            </div>
+        ` : "";
     })
 
 }

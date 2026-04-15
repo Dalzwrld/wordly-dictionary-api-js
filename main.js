@@ -130,5 +130,17 @@ function renderWord(word) {
                 </button>
             </div>
         </div>
+
+        <div class="meanings-list">${meaningsItems}</div>
+        ${sourceItems}
     `;
+
+    updateFavBadge();
+}
+
+function playAudio() {
+    if (currentAudio) {
+        currentAudio.currentTime = 0;
+        currentAudio.play().catch(() => toast("Audio unavailable"));
+    }
 }

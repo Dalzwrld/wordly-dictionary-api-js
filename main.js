@@ -74,7 +74,7 @@ function renderWord(word) {
                 <span class="def-num">${i + 1}.</span>
                 <div class="def-body">
                     <div class="def-text">${def.definition}</div>
-                    &{def.example ? <div class="def-example">"${def.example}"</div> : ""}
+                    ${def.example ? `<div class="def-example">"${def.example}"</div>` : ""}
                 </div>
             </li>`).join("");
 
@@ -115,7 +115,17 @@ function renderWord(word) {
         <div class="word-header">
             <div class="word-main">
                 <div class="word-title">${word.word}</div>
-                <div class="word-phonetic"></div>
+                <div class="word-phonetic">
+                    ${phonetic ? `<span class="phonetic-text">${phonetic}</span>` : ""}
+                    ${phonetic ? `<button class="play-btn" onclick="playAudio()">
+                        <svg></svg>
+                        Pronounce
+                    </button>` : ""}
+                </div>
+            </div>
+
+            <div class="word-actions">
+                <button class="icon-btn"></button>
             </div>
         </div>
     `;

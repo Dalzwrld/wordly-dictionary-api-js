@@ -39,7 +39,12 @@ async function searchWord() {
             showError(`No results were found for "${query}". Please try again`)
             return;
         }
+
+        setTimeout(() => {
+            renderWord(data[0]);
+        }, 1000);
     } catch (error) {
-        
+        console.error("Error fetching your animal:", error);
+        showError("Something went wrong. Please try again later.")
     }
 }

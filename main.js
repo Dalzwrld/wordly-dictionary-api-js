@@ -9,6 +9,9 @@ const savedContainer = document.getElementById("fav-panel");
 const searchContainer = document.getElementById("search-panel");
 const favContainer = document.getElementById("fav-panel");
 
+let currentWord = null;
+let currentAudio = null;
+
 searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") searchWord;
 });
@@ -36,7 +39,7 @@ async function searchWord() {
         const data = await response.json();
 
         if (!data || data.length === 0) {
-            showError(`No results were found for "${query}". Please try again`)
+            showError(`No results were found for <strong>"${query}"</strong>. Please try again`)
             return;
         }
 
@@ -47,4 +50,14 @@ async function searchWord() {
         console.error("Error fetching your animal:", error);
         showError("Something went wrong. Please try again later.")
     }
+}
+
+function renderWord(word) {
+    currentWord = word;
+
+    const phoneticObj = (word.phonetics || []).find(p => p.text) || {};
+    const audioObj = (word.phonetics || []).find(p => p.audio && p.audio.trim()) || {};
+    const phonetic = word.phonetics || "";
+    const audioUrl = audioObj.audio || "";
+    currentAudio = audioUrl ? new Audio(audioUrl) : null;
 }

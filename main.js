@@ -168,5 +168,13 @@ function switchToFav() {
     if (favBtn) {
         const favoriteWord = favorites.some(fav => fav.word === currentWord.word);
         favBtn.classList.toggle("liked", favoriteWord);
+        favBtn.innerHTML = `
+            <svg></svg>
+        `;
     }
+}
+
+function updateFavBadge() {
+    const favBadge = document.getElementById("fav-badge");
+    favBadge.textContent = favorites.length ? `(${favorites.length})` : "";
 }

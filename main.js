@@ -60,4 +60,27 @@ function renderWord(word) {
     const phonetic = word.phonetics || "";
     const audioUrl = audioObj.audio || "";
     currentAudio = audioUrl ? new Audio(audioUrl) : null;
+
+    const favoriteWord = favorites.some(fav => fav.word === word.word);
+
+    const meaningsObj = word.meanings || [];
+
+    let meaningsItems = "";
+
+    meaningsObj.forEach(mean => {
+        const defs = mean.definitions.slice(0, 4);
+
+        const defsItems = defs.map((def, i) => `
+            <li class="def-item">
+                <span class="def-num">${i + 1}.</span>
+                <div class="def-body">
+                    <div class="def-text">${def.definition}</div>
+                    &{def.example ? <div class="def-example">"${def.example}"</div> : ""}
+                </div>
+            </li>`).join("");
+
+        const synonyms = (mean.synonyms || []).slice(0, 6);
+        const antonyms = (mean.antonyms || []).slice(0, 6);
+    })
+
 }

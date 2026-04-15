@@ -103,4 +103,20 @@ function renderWord(word) {
         `;
     });
 
+    // const sourceUrl = (word.sourceUrls || [])[0] || "";
+    // const sourceItems = sourceUrl ? `
+    //     <section class="section-divider">
+    //         <svg></svg>
+    //         Source: <a href="${sourceUrl} target="_blank">${sourceUrl}</a>
+    //     </section>
+    // ` : "";
+
+    resultCard.innerHTML = `
+        <div class="word-header">
+            <div class="word-main">
+                <div class="word-title">${word.word}</div>
+                <div class="word-phonetic"></div>
+            </div>
+        </div>
+    `;
 }

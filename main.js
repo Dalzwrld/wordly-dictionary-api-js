@@ -1,6 +1,6 @@
 let favorites = JSON.parse(localStorage.getItem("fav-words"));
 
-const API_KEY = `https://api.dictionaryapi.dev/api/v2/entries/en/<word>`;
+const API = `https://api.dictionaryapi.dev/api/v2/entries/en/<word>`;
 
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
@@ -21,10 +21,24 @@ async function searchWord() {
     }
 
     clearError();
-    resultContainer.innerHTML = "";
+    resultCard.innerHTML = "";
 
     try {
-        
+        const response = await fetch(API + encodeURIComponent(query), 
+            {
+                method: "GET"
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data || data.length === 0) {
+            showError(`No results were found for "${query}". Please try again`)
+            return;
+        }
     } catch (error) {
         
     }

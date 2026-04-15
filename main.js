@@ -159,4 +159,14 @@ function switchToFav() {
 
         toast("Saved to your word list");
     }
+
+    localStorage.setItem("wordly_favs", JSON.stringify(favorites));
+    updateFavBadge();
+
+    const favBtn = document.getElementById("fav-btn");
+
+    if (favBtn) {
+        const favoriteWord = favorites.some(fav => fav.word === currentWord.word);
+        favBtn.classList.toggle("liked", favoriteWord);
+    }
 }

@@ -31,7 +31,9 @@ async function searchWord() {
     resultCard.style.display = "none";
 
     try {
-        const response = await fetch(API + encodeURIComponent(query));
+        const response = await fetch(API + encodeURIComponent(query), {
+            method: "GET"
+        });
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);

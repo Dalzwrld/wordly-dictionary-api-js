@@ -13,7 +13,7 @@ let currentWord = null;
 let currentAudio = null;
 
 function showTabs(tab) {
-    document.getElementById("search-panel").style.display = tab === "";
+    document.getElementById("search-panel").style.display = tab === "search";
     document.getElementById("");
     document.getElementById("");
     document.getElementById("");

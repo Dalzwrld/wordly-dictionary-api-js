@@ -1,29 +1,19 @@
 :root {
-    --logo-font-family: "Instrument Serif", serif;
-    --logo-font-weight: 600;
-    --logo-font-size: 2rem;
-    --nav-btn-font-family: "DN Sans", sans-serif;
-    --nav-btn-font-weight: 400;
-    --nav-btn-font-size: 1rem;
-    --search-title-font-family: "Instrument Serif", sans-serif;
-    --search-title-font-weight: 800;
-    --search-title-font-size: 2.5rem;
-    --search-result-h3-font-family: "Instrument Serif", sans-serif;
-    --search-result-h3-font-weight: 600;
-    --search-result-h3-font-size: 2rem;
-    --search-result-p-font-family: "DN Sans", sans-serif;
-    --search-result-p-font-weight: 400;
-    --search-result-p-font-size: 1rem;
-    --search-result-p-color: #00000080;
-    --fav-title-h4-font-family: "Instrument Serif", serif;
-    --fav-title-h4-font-weight: 600;
-    --fav-title-h4-font-size: 2rem;
-    --search-input-placeholder-font-size: 1.5rem;
-    --search-input-placeholder-color: #212529;
-    --fav-saved-titles-h3-font-family: "Instrument Serif", sans-serif;
-    --fav-saved-titles-h3-font-weight: 600;
-    --fav-saved-titles-h3-font-size: 2rem;
+    --main-background-color: #f7f4ef;
     --card-background-color: #fffefb;
+    --faint-background-color: #f0ebe2;
+    --primary-color: #0f0e0c;
+    --secondary-color: #5a5752;
+    --muted-color: #a09d98;
+    --main-accent-color: #c8440c;
+    --hover-accent-color: #f5e8e2;
+    --search-button-hover-color: #8c2e08;
+    --main-border: rgba(15, 14, 12, 0.1);
+    --border-medium: rgba(15, 14, 12, 0.18);
+    --headings-font-family: "Instrument Serif", serif;
+    --body-font-family: "DM Sans", sans-serif;
+    --radius: 12px;
+    --small-radius: 7px;
 }
 
 *, *::before, *::after {
@@ -34,6 +24,7 @@
 
 body {
     background-color: #f7f4ef;
+    font-family: DM Sans;
 }
 
 .container {

@@ -17,8 +17,8 @@
         <header>
             <div class="logo">Wordly</div>
             <nav class="nav-tabs">
-                <button type="submit" id="search-nav-btn">Search</button>
-                <button type="submit" id="favs-nav-btn">Saved</button>
+                <button type="submit" id="search-nav-btn" class="nav-tab active" onclick="showTab('search')">Search</button>
+                <button type="submit" id="favs-nav-btn" class="nav-tab" onclick="showTab('favs')">Saved</button>
             </nav>
         </header>
 
@@ -48,7 +48,7 @@
             <div id="fav-list"></div>
         </section>
     </main>
-
-    <section id="toast"></section>
 </body>
+
+<section id="toast"></section>
 </html>

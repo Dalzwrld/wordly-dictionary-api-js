@@ -59,7 +59,7 @@ header {
     gap: 5px;
 }
 
-#search-nav-btn, #favs-nav-btn {
+.nav-tab {
     color: var(--muted-text-color);
     font-size: 0.9rem;
     font-weight: 400;
@@ -70,19 +70,13 @@ header {
     background: none;
 }
 
-#search-nav-btn.active, #favs-nav-btn.active {
+.nav-tab.active {
     color: var(--main-accent-color);
     border-color: var(--main-accent-color);
     background: var(--main-accent-color);
 }
 
-#search-nav-btn.active, #search-nav-btn:hover {
-    background: var(--card-background-color);
-    border-color: var(--border-medium);
-    color: var(--primary-text-color);
-}
-
-#favs-nav-btn.active, #favs-nav-btn:hover {
+.nav-tab.active, .nav-tab:hover {
     background: var(--card-background-color);
     border-color: var(--border-medium);
     color: var(--primary-text-color);

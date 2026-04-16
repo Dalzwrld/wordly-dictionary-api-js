@@ -13,10 +13,12 @@ let currentWord = null;
 let currentAudio = null;
 
 function showTabs(tab) {
-    document.getElementById("search-panel").style.display = tab === "search";
-    document.getElementById("");
-    document.getElementById("");
-    document.getElementById("");
+    document.getElementById("search-panel").style.display = tab === "search" ? "" : "none";
+    document.getElementById("fav-panel").style.display = tab === "favs" ? "" : "none";
+    document.getElementById("search-nav-btn").classList.toggle("active", tab === "search");
+    document.getElementById("fav-nav-btn").classList.toggle("active", tab === "favs");
+
+    if (tab === "favs") renderFavWords();
 }
 
 searchInput.addEventListener("keydown", e => {

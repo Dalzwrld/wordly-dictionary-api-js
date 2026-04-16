@@ -12,14 +12,9 @@ const favContainer = document.getElementById("fav-panel");
 let currentWord = null;
 let currentAudio = null;
 
-function showTabs(tab) {
-    document.getElementById("search-panel").style.display = tab === "search" ? "" : "none";
-    document.getElementById("fav-panel").style.display = tab === "favs" ? "" : "none";
-    document.getElementById("search-nav-btn").classList.toggle("active", tab === "search");
-    document.getElementById("fav-nav-btn").classList.toggle("active", tab === "favs");
-
-    if (tab === "favs") renderFavWords();
-}
+searchBtn.addEventListener("click", () => {
+    searchWord();
+});
 
 searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") searchWord;
@@ -32,6 +27,8 @@ async function searchWord() {
 
     clearError();
     resultCard.innerHTML = "";
+
+    resultCard.style.display = "none";
 
     try {
         const response = await fetch(API + encodeURIComponent(query));
@@ -56,9 +53,11 @@ async function searchWord() {
     }
 }
 
+
+
 function renderWord(entry) {
     const card = document.getElementById("result-card");
-    card.style.display = "none";
+    card.style.display = "block";
     currentWord = entry;
 
     const phoneticObj = (word.phonetics || []).find(p => p.text) || {};
@@ -114,7 +113,7 @@ function renderWord(entry) {
         <section class="section-divider"></section>
         <div>
             <svg></svg>
-            Source: <a href="${sourceUrl} target="_blank">${sourceUrl}</a>
+            Source: <a href="${sourceUrl}" target="_blank">${sourceUrl}</a>
         </div>
     ` : "";
 
@@ -124,7 +123,7 @@ function renderWord(entry) {
                 <div class="word-title">${entry.word}</div>
                 <div class="word-phonetic">
                     ${phonetic ? `<span class="phonetic-text">${phonetic}</span>` : ""}
-                    ${phonetic ? `<button class="play-btn" onclick="playAudio()">
+                    ${phonetic ? `<button class="play-btn">
                         <svg></svg>
                         Pronounce
                     </button>` : ""}
@@ -132,7 +131,7 @@ function renderWord(entry) {
             </div>
 
             <div class="word-actions">
-                <button class="icon-btn ${favoriteWord ? "liked" : ""}" id="favBtn" onclick="switchToFav()" title="${favoriteWord ? "Remove from saved" : "Save word"}">
+                <button class="icon-btn ${favoriteWord ? "liked" : ""}" id="fav-btn" title="${favoriteWord ? "Remove from saved" : "Save word"}">
                     <svg><svg/>
                 </button>
             </div>
@@ -143,6 +142,19 @@ function renderWord(entry) {
     `;
 
     updateFavBadge();
+
+    document.getElementById("fav-btn").addEventListener("click", () => {
+        toggleFav();
+    })
+
+    const playBtn = document.getElementById("play-btn");
+    if (playBtn) playBtn.addEventListener("click", () => {
+        playAudio();
+    })
+
+    card.querySelectorAll(".tag[data-lookup").forEach(tag => {
+        tag.addEventListener("click", () => searchTag(tag.dataset.lookup));
+    });
 }
 
 function playAudio() {
@@ -152,17 +164,17 @@ function playAudio() {
     }
 }
 
-function switchToFav() {
+function toggleFav() {
     if(!currentWord) return;
-    const index = favorites.findIndex(fav => fav.word === currentWord.word);
+    const idx = favorites.findIndex(fav => fav.word === currentWord.word);
 
-    if (index > -1) {
-        favorites.splice(index, 1);
+    if (idx > -1) {
+        favorites.splice(idx, 1);
         toast("Removed from saved words");
     } else {
         const phonetic = (currentWord.phonetics || []).find(phone => phone.text) || {};
         const firstPOS = (currentWord.meanings || [])[0]?.partOfSpeech || "";
-        favorites.unshift({ word: currentWord.word, phonetic: phonetic.text || "", partOfSpeech :firstPOS});
+        favorites.unshift({ word: currentWord.word, phonetic: phonetic.text || "", pos :firstPOS});
 
         toast("Saved to your word list");
     }
@@ -182,8 +194,14 @@ function switchToFav() {
 }
 
 function updateFavBadge() {
+    const count = favorites.length;
     const favBadge = document.getElementById("fav-badge");
-    favBadge.textContent = favorites.length ? `(${favorites.length})` : "";
+    const pill = document.getElementById("fav-badge-pill");
+    const panel = document.getElementById("fav-panel");
+
+    favBadge.textContent = count;
+    pill.classList.toggle("visible", count > 0);
+    panel.classList.toggle("has-items", count > 0);
 }
 
 function renderFavWords() {
@@ -192,21 +210,21 @@ function renderFavWords() {
     count.textContent = favorites.length === 1 ? "1 word" : `${favorites.length} words`;
 
     if (!favorites.length) {
-        list.innerHTML = `<div class="fav-empty">No saved words yet.<br>Search for a word and tap on the heart to save it.</div>`;
+        list.innerHTML = '<div class="fav-empty">No saved words yet.<br>Search for a word and tap on the heart to save it.</div>';
         return;
-    } else {
-        list.innerHTML =  `<div class="fav-grid></div>` + favorites.map((fav, i)`
-            <div class="fav-item" onclick="searchFav(${fav.phonetic})">
-                <div>
-                    <div class="fav-item-word">${fav.word}</div>
-                    ${fav.phonetic ? `<div class="fav-item-phonetic">${fav.phonetic}</div>` : ""}
-                </div>
-
-                ${fav.partOfSpeech ? `<span class="fav-item-pos">${fav.partOfSpeech}</span>` : ""}
-                <button class="fav-remove" onclick="removeFav(event, ${i})" title="Remove">x</button>
+    } 
+        
+    list.innerHTML =  `<div class="fav-grid></div>` + favorites.map((fav, i)`
+        <div class="fav-item" onclick="searchFav(${fav.phonetic})">
+            <div>
+                <div class="fav-item-word">${fav.word}</div>
+                ${fav.phonetic ? `<div class="fav-item-phonetic">${fav.phonetic}</div>` : ""}
             </div>
-        `).join("") ;
-    }
+
+            ${fav.pos ? `<span class="fav-item-pos">${fav.pos}</span>` : ""}
+            <button class="fav-remove" onclick="removeFav(event, ${i})" title="Remove">x</button>
+        </div>
+    `).join("") + "</div>";
 }
 
 function removeFav(event, i) {
@@ -219,7 +237,7 @@ function removeFav(event, i) {
 
 function searchFav(word) {
     document.getElementById("search-input").value = word;
-    
+    showTab("search");
     searchWord();
 }
 
@@ -227,3 +245,15 @@ function searchTag(word) {
     document.getElementById("search-input").value = word;
     searchWord();
 }
+
+function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => 
+        el.classList.remove("show")
+    , 2400);
+}
+
+updateFavBadge();

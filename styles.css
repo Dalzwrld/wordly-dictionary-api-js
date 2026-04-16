@@ -340,3 +340,36 @@ header {
     text-decoration: underline;
 }
 
+#fav-panel {
+    display: none;
+}
+
+.fav-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.fav-title {
+    font-family: var(--headings-font-family);
+    font-size: 30px;
+}
+
+.fav-count {
+    color: var(--muted-text-color);
+    font-size: 12px;
+}
+
+.fav-empty {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--muted-text-color);
+    font: 14px;
+}
+
+.fav-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}

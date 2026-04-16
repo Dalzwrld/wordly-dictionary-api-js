@@ -187,9 +187,9 @@ function toggleFav() {
     if (favBtn) {
         const favoriteWord = favorites.some(fav => fav.word === currentWord.word);
         favBtn.classList.toggle("liked", favoriteWord);
-        favBtn.innerHTML = `
-            <svg></svg>
-        `;
+        // favBtn.innerHTML = `
+        //     ${favoriteWord}
+        // `;
     }
 }
 
@@ -222,13 +222,25 @@ function renderFavWords() {
             </div>
 
             ${fav.pos ? `<span class="fav-item-pos">${fav.pos}</span>` : ""}
-            <button class="fav-remove" onclick="removeFav(event, ${i})" title="Remove">x</button>
+            <button class="fav-remove" data-idx="${i})" title="Remove">x</button>
         </div>
     `).join("") + "</div>";
+
+    list.querySelectorAll(".fav-item").forEach(item => {
+        item.addEventListener("click", () => {
+            lookupFav(item.dataset.word)
+        });
+    })
+
+    list.querySelectorAll(".fav-remove").forEach(btn => {
+        btn.addEventListener("click", event => {
+            event.stopPropagation();
+            removeFav(parseInt(btn.dataset.idx));
+        });
+    })
 }
 
-function removeFav(event, i) {
-    event.stopPropagation();
+function removeFav(i) {
     favorites.splice(i, 1);
     localStorage.setItem("wordly-favs", JSON.stringify(favorites));
     updateFavBadge();

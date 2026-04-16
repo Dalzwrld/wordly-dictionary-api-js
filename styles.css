@@ -200,4 +200,74 @@ header {
     height: 38px;
     border-radius: 50%;
     border: 1px solid var(--border-medium);
+    background: var(--card-background-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-text-color);
+}
+
+.icon-btn:hover {
+    background: var(--hover-accent-color);
+    border-color: var(--border-medium);
+    color: var(--primary-text-color);
+}
+
+.icon-btn.liked {
+    background: var(--faint-background-color);
+    border-color: var(--main-accent-color);
+    color: var(--main-accent-color);
+}
+
+/* .icon-btn svg {} */
+
+.meanings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.pos-badge {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    background: var(--faint-background-color);
+    color: var(--muted-text-color);
+    border: 1px solid var(--main-border);
+}
+
+.definitions-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.def-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--card-background-color);
+    border: 1px solid var(--main-border);
+}
+
+.def-item:hover {
+    border-color: var(--border-medium);
+}
+
+.def-num {
+    font-family: var(--body-font-family);
+    font-size: 14px;
+    color: var(--muted-text-color);
+    width: 22px;
+    padding: 1px;
+}
+
+.def-body {
+    flex: 1;
 }

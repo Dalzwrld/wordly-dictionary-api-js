@@ -28,18 +28,13 @@ searchInput.addEventListener("keydown", e => {
 async function searchWord() {
     const query = searchInput.value.trim();
 
-    if (!query) {
-        showError("Please enter a word.")
-    }
+    if (!query) return;
 
     clearError();
     resultCard.innerHTML = "";
 
     try {
-        const response = await fetch(API + encodeURIComponent(query), 
-            {
-                method: "GET"
-        })
+        const response = await fetch(API + encodeURIComponent(query));
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -56,23 +51,25 @@ async function searchWord() {
             renderWord(data[0]);
         }, 1000);
     } catch (error) {
-        console.error("Error fetching your animal:", error);
+        console.error("Error fetching your word:", error);
         showError("Something went wrong. Please try again later.")
     }
 }
 
-function renderWord(word) {
-    currentWord = word;
+function renderWord(entry) {
+    const card = document.getElementById("result-card");
+    card.style.display = "none";
+    currentWord = entry;
 
     const phoneticObj = (word.phonetics || []).find(p => p.text) || {};
     const audioObj = (word.phonetics || []).find(p => p.audio && p.audio.trim()) || {};
-    const phonetic = word.phonetics || "";
+    const phonetic = phoneticObj.text || "";
     const audioUrl = audioObj.audio || "";
     currentAudio = audioUrl ? new Audio(audioUrl) : null;
 
-    const favoriteWord = favorites.some(fav => fav.word === word.word);
+    const favoriteWord = favorites.some(fav => fav.word === entry.word);
 
-    const meaningsObj = word.meanings || [];
+    const meaningsObj = entry.meanings || [];
 
     let meaningsItems = "";
 
@@ -104,26 +101,27 @@ function renderWord(word) {
         ` : "";
 
         meaningsItems += `
-            <div class="meaning-panel">
-                <span class="speech-part">${mean.partOfSpeech}</span>
+            <div class="meaning-block">
+                <span class="pos-badge">${mean.partOfSpeech}</span>
                 <ul class="definitions-list">${defsItems}</ul>
                 ${synItems}${antItems}
             </div>
         `;
     });
 
-    // const sourceUrl = (word.sourceUrls || [])[0] || "";
-    // const sourceItems = sourceUrl ? `
-    //     <section class="section-divider">
-    //         <svg></svg>
-    //         Source: <a href="${sourceUrl} target="_blank">${sourceUrl}</a>
-    //     </section>
-    // ` : "";
+    const sourceUrl = (entry.sourceUrls || [])[0] || "";
+    const sourceItems = sourceUrl ? `
+        <section class="section-divider"></section>
+        <div>
+            <svg></svg>
+            Source: <a href="${sourceUrl} target="_blank">${sourceUrl}</a>
+        </div>
+    ` : "";
 
-    resultCard.innerHTML = `
+    card.innerHTML = `
         <div class="word-header">
             <div class="word-main">
-                <div class="word-title">${word.word}</div>
+                <div class="word-title">${entry.word}</div>
                 <div class="word-phonetic">
                     ${phonetic ? `<span class="phonetic-text">${phonetic}</span>` : ""}
                     ${phonetic ? `<button class="play-btn" onclick="playAudio()">

@@ -271,3 +271,25 @@ header {
 .def-body {
     flex: 1;
 }
+
+.def-text {
+    font-size: 15px;
+    color: var(--main-accent-color);
+    font-weight: 300;
+}
+
+.def-example {
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted-text-color);
+    margin: 5px;
+    border-left: 2px solid var(--border-medium);
+    padding-left: 10px;
+}
+
+.word-tags {
+    margin-top: 13px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}

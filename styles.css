@@ -115,3 +115,48 @@ header {
 #search-input::placeholder {
     color: var(--muted-text-color);
 }
+
+#search-btn {
+    background: var(--main-accent-color);
+    font-family: var(--body-font-family);
+    border: none;
+    color: #ffffff;
+    padding: 0 18px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#search-btn:hover {
+    background-color: var(--search-button-hover-color);
+}
+
+#result-card {
+    display: none;
+}
+
+.word-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.word-title {
+    font-family: var(--headings-font-family);
+    font-size: 3rem;
+    color: var(--main-accent-color);
+}
+
+.word-phonetic {
+    color: var(--muted-text-color);
+    font-size: 10px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+}

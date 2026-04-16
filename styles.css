@@ -297,11 +297,46 @@ header {
 .tag-label {
     font-size: 12px;
     color: var(--muted-text-color);
+    align-self: center;
+}
+
+.tag {
     background: var(--hover-accent-color);
     border: 1px solid var(--main-border);
     border-radius: 20px;
     padding: 3px 10px;
     cursor: pointer;
     font-family: var(--body-font-family);
+    color: var(--secondary-text-color);
+    font-family: var(--body-font-family);
+}
+
+.tag:hover {
+    background: var(--hover-accent-color);
+    border-color: var(--main-accent-color);
+    color: var(--main-accent-color);
+}
+
+.section-divider {
+    height: 1px;
+    background: var(--main-border);
+    margin: 24px 0;
+}
+
+.source-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted-text-color);
+}
+
+.source-row a {
+    color: var(--main-accent-color);
+    text-decoration: none;
+}
+
+.source-row a:hover {
+    text-decoration: underline;
 }
 

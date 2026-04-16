@@ -429,4 +429,19 @@ header {
 
 #toast {
     position: fixed;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%) translateY(36px);
+    background: var(--primary-text-color);
+    color: var(--main-background-color);
+    padding: 10px 19px;
+    border-radius: 20px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#toast.show {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
 }

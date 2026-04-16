@@ -111,14 +111,9 @@ header {
 .search-bar {
     display: flex;
     gap: 0;
-    margin: 20px 0;
+    margin: 40px 0;
     border-radius: 12px;
     background-color: var(--card-background-color);
-}
-
-.search-bar:focus-within {
-    border-color: var(--main-accent-color);
-    box-shadow: 0 0 0 3px rgba(200, 68, 12, 0.1);
 }
 
 #search-input {
@@ -128,7 +123,7 @@ header {
     outline: none;
     background: none;
     border-radius: 12px 0 0 12px;
-    border-color: var(--main-border);
+    border-color: var(--border-medium);
     padding: 13px 18px;
     font-size: 1.1rem;
     font-weight: 300;

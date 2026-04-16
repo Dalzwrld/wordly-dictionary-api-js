@@ -293,3 +293,15 @@ header {
     gap: 6px;
     flex-wrap: wrap;
 }
+
+.tag-label {
+    font-size: 12px;
+    color: var(--muted-text-color);
+    background: var(--hover-accent-color);
+    border: 1px solid var(--main-border);
+    border-radius: 20px;
+    padding: 3px 10px;
+    cursor: pointer;
+    font-family: var(--body-font-family);
+}
+

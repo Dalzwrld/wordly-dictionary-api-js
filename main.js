@@ -181,7 +181,7 @@ function toggleFav() {
         toast("Saved to your word list");
     }
 
-    localStorage.setItem("wordly_favs", JSON.stringify(favorites));
+    localStorage.setItem("fav-words", JSON.stringify(favorites));
     updateFavBadge();
     renderFavWords();
 

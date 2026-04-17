@@ -108,8 +108,8 @@ function renderWord(entry) {
     const sourceUrl = (entry.sourceUrls || [])[0] || "";
     const sourceItems = sourceUrl ? `
         <section class="section-divider"></section>
-        <div>
-            <img src="images/icons8-link-64.png" alt="Link icon">
+        <div class="source-row">
+            <img src="images/icons8-link-26.png" alt="Link icon">
             Source: <a href="${sourceUrl}" target="_blank">${sourceUrl}</a>
         </div>
     ` : "";

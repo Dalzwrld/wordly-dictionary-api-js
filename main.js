@@ -58,7 +58,9 @@ function renderWord(entry) {
     const phoneticObj = (entry.phonetics || []).find(p => p.text) || {};
     const audioObj = (entry.phonetics || []).find(p => p.audio && p.audio.trim()) || {};
     const phonetic = phoneticObj.text || "";
-    const audioUrl = audioObj.audio || "";
+    let audioUrl = audioObj.audio || "";
+
+    if (audioUrl.startsWith("//")) audioUrl = "https:" + audioUrl;
     currentAudio = audioUrl ? new Audio(audioUrl) : null;
 
     const favoriteWord = favorites.some(fav => fav.word === entry.word);
@@ -82,7 +84,7 @@ function renderWord(entry) {
         const synItems = synonyms.length ? `
             <div class="word-tags">
                 <span class="tag-label">syn.</span>
-                ${synonyms.map(syn => `<span class="tag" data-lookup="${syn}")">${syn}</span>`).join("")}
+                ${synonyms.map(syn => `<span class="tag" data-lookup="${syn}">${syn}</span>`).join("")}
             </div>
         ` : "";
 
@@ -90,7 +92,7 @@ function renderWord(entry) {
         const antItems = antonyms.length ? `
             <div class="word-tags">
                 <span class="tag-label">ant.</span>
-                ${antonyms.map(ant => `<span class="tag" data-lookup="${ant}")">${ant}</span>`).join("")}
+                ${antonyms.map(ant => `<span class="tag" data-lookup="${ant}">${ant}</span>`).join("")}
             </div>
         ` : "";
 
@@ -207,7 +209,7 @@ function renderFavWords() {
         return;
     } 
         
-    list.innerHTML =  `<div class="fav-grid></div>` + favorites.map((fav, i) =>`
+    list.innerHTML =  `<div class="fav-grid>` + favorites.map((fav, i) =>`
         <div class="fav-item" data-word="${fav.word}">
             <div>
                 <div class="fav-item-word">${fav.word}</div>
@@ -217,7 +219,7 @@ function renderFavWords() {
             ${fav.pos ? `<span class="fav-item-pos">${fav.pos}</span>` : ""}
             <button class="fav-remove" data-idx="${i}" title="Remove">x</button>
         </div>
-    `).join("") + "</div>";
+    `).join("") + `</div>`;
 
     list.querySelectorAll(".fav-item").forEach(item => {
         item.addEventListener("click", () => {
@@ -242,13 +244,23 @@ function removeFav(i) {
 
 function searchFav(word) {
     document.getElementById("search-input").value = word;
-    showTab("search");
+    window.scrollTo({ top: 0, behavior: "smooth" });
     searchWord();
 }
 
 function searchTag(word) {
     document.getElementById("search-input").value = word;
     searchWord();
+}
+
+function showError(msg) {
+    resultCard.style.display = "block";
+    resultCard.innerHTML = `<p style=" color: var(--muted-text-color); font-size: 14px; text-align: center; padding: 2rem 0;">${msg}</p>`;
+}
+
+function clearError() {
+    resultCard.innerHTML = "";
+    resultCard.style.display = "none";
 }
 
 function toast(msg) {
@@ -262,3 +274,4 @@ function toast(msg) {
 }
 
 updateFavBadge();
+renderFavWords();

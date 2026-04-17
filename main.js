@@ -107,7 +107,7 @@ function renderWord(entry) {
     const sourceItems = sourceUrl ? `
         <section class="section-divider"></section>
         <div>
-            <img src="" alt="">
+            <img src="images/icons8-link-64.png" alt="Link icon">
             Source: <a href="${sourceUrl}" target="_blank">${sourceUrl}</a>
         </div>
     ` : "";
@@ -119,7 +119,7 @@ function renderWord(entry) {
                 <div class="word-phonetic">
                     ${phonetic ? `<span class="phonetic-text">${phonetic}</span>` : ""}
                     ${audioUrl ? `<button class="play-btn" id="play-btn">
-                        <img src="" alt="">
+                        <img src="images/icons8-speaker-48.png" alt="Speaker icon">
                         Pronounce
                     </button>` : ""}
                 </div>
@@ -127,7 +127,7 @@ function renderWord(entry) {
 
             <div class="word-actions">
                 <button class="icon-btn ${favoriteWord ? "liked" : ""}" id="fav-btn" title="${favoriteWord ? "Remove from saved" : "Save word"}">
-                    <img src="" alt="">
+                    <img src="images/icons8-star-48.png" alt="Star icon">
                 </button>
             </div>
         </div>

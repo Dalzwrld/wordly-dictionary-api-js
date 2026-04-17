@@ -9,9 +9,7 @@ const resultCard = document.getElementById("result-card");
 let currentWord = null;
 let currentAudio = null;
 
-searchBtn.addEventListener("click", () => {
-    searchWord();
-});
+searchBtn.addEventListener("click", () => searchWord());
 
 searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") searchWord();
@@ -39,7 +37,7 @@ async function searchWord() {
         const data = await response.json();
 
         if (!data || data.length === 0) {
-            showError(`No results were found for <strong>"${query}"</strong>. Please try again`)
+            showError(`No results were found for <strong>"${query}"</strong>. Please try again`);
             return;
         }
 
@@ -51,8 +49,6 @@ async function searchWord() {
         showError("Something went wrong. Please try again later.")
     }
 }
-
-
 
 function renderWord(entry) {
     const card = document.getElementById("result-card");

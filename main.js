@@ -9,7 +9,7 @@ const resultCard = document.getElementById("result-card");
 let currentWord = null;
 let currentAudio = null;
 
-searchBtn.addEventListener("submit", () => searchWord());
+searchBtn.addEventListener("click", () => searchWord());
 
 searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") searchWord();
@@ -138,17 +138,17 @@ function renderWord(entry) {
 
     updateFavBadge();
 
-    document.getElementById("fav-btn").addEventListener("submit", () => {
+    document.getElementById("fav-btn").addEventListener("click", () => {
         toggleFav();
     })
 
     const playBtn = document.getElementById("play-btn");
-    if (playBtn) playBtn.addEventListener("submit", () => {
+    if (playBtn) playBtn.addEventListener("click", () => {
         playAudio();
     })
 
-    card.querySelectorAll(".tag[data-lookup").forEach(tag => {
-        tag.addEventListener("submit", () => searchTag(tag.dataset.lookup));
+    card.querySelectorAll(".tag[data-lookup]").forEach(tag => {
+        tag.addEventListener("click", () => searchTag(tag.dataset.lookup));
     });
 }
 
@@ -220,13 +220,13 @@ function renderFavWords() {
     `).join("") + "</div>";
 
     list.querySelectorAll(".fav-item").forEach(item => {
-        item.addEventListener("submit", () => {
+        item.addEventListener("click", () => {
             searchFav(item.dataset.word)
         });
     })
 
     list.querySelectorAll(".fav-remove").forEach(btn => {
-        btn.addEventListener("submit", event => {
+        btn.addEventListener("click", event => {
             event.stopPropagation();
             removeFav(parseInt(btn.dataset.idx));
         });

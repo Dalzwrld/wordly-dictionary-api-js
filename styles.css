@@ -57,7 +57,7 @@ header {
 #fav-badge-pill {
     display: none;
     gap: 6px;
-    color: var(--hover-accent-color);
+    color: var(--main-accent-color);
     font-size: 12px;
     font-weight: 500;
     padding: 6px 13px;
@@ -346,8 +346,9 @@ header {
     text-decoration: underline;
 }
 
-#fav-panel {
-    display: none;
+#fav-panel.has-items {
+    display: block;
+    margin-top: 48px;
 }
 
 .fav-header {
@@ -371,7 +372,7 @@ header {
     text-align: center;
     padding: 48px 0;
     color: var(--muted-text-color);
-    font: 14px;
+    font-size: 14px;
 }
 
 .fav-grid {
@@ -448,6 +449,6 @@ header {
 }
 
 #toast.show {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(-50%) translateY(0);
 }

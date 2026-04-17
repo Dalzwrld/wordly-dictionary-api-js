@@ -19,23 +19,24 @@
             <div class="fav-badge-pill" id="fav-badge-pill">
                 <img src="images/icons8-heart-48.png" alt="Heart icon">
             </div>
+            <span id="fav-badge">0</span>
         </header>
 
         <section class="search-panel">
             <section class="hero">
                 <h1 class="search-title">Look up any word. Let <em>Wordly</em> be your guide.</h1>
                 
-                <div class="search-bar">
+                <div class="search-bar" id="search-bar">
                     <input type="text" placeholder="Enter word e.g. ephemeral, serene" id="search-input">
-                    <button type="submit" id="search-btn">
-                        <p>Search</p>
+                    <button type="button" id="search-btn">
+                        Search
                     </button>
                 </div>
             </section>
         </section>
 
         <section class="result-panel">
-            <div class="result-card"></div>
+            <div class="result-card" id="result-card"></div>
         </section>
 
         <section id="fav-panel">
@@ -46,10 +47,12 @@
 
             <div id="fav-list"></div>
         </section>
+        
+        <section id="toast"></section>
     </main>
+    
+    <script src="main.js"></script>
 </body>
 
-<section id="toast"></section>
 
-<script src="main.js"></script>
 </html>

@@ -5,9 +5,6 @@ const API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 const resultCard = document.getElementById("result-card");
-const savedContainer = document.getElementById("fav-panel");
-const searchContainer = document.getElementById("search-panel");
-const favContainer = document.getElementById("fav-panel");
 
 let currentWord = null;
 let currentAudio = null;

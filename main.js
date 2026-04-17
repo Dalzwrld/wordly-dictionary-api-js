@@ -1,6 +1,6 @@
-let favorites = JSON.parse(localStorage.getItem("fav-words"));
+let favorites = JSON.parse(localStorage.getItem("fav-words") || "[]");
 
-const API = `https://api.dictionaryapi.dev/api/v2/entries/en/<word>`;
+const API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
@@ -17,7 +17,7 @@ searchBtn.addEventListener("click", () => {
 });
 
 searchInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") searchWord;
+    if (e.key === "Enter") searchWord();
 });
 
 async function searchWord() {
@@ -62,8 +62,8 @@ function renderWord(entry) {
     card.style.display = "block";
     currentWord = entry;
 
-    const phoneticObj = (word.phonetics || []).find(p => p.text) || {};
-    const audioObj = (word.phonetics || []).find(p => p.audio && p.audio.trim()) || {};
+    const phoneticObj = (entry.phonetics || []).find(p => p.text) || {};
+    const audioObj = (entry.phonetics || []).find(p => p.audio && p.audio.trim()) || {};
     const phonetic = phoneticObj.text || "";
     const audioUrl = audioObj.audio || "";
     currentAudio = audioUrl ? new Audio(audioUrl) : null;
@@ -89,7 +89,7 @@ function renderWord(entry) {
         const synItems = synonyms.length ? `
             <div class="word-tags">
                 <span class="tag-label">syn.</span>
-                ${synonyms.map(syn => `<span class="tag" onclick="searchTag("${syn}")">${syn}</span>`).join("")}
+                ${synonyms.map(syn => `<span class="tag" data-lookup="${syn}")">${syn}</span>`).join("")}
             </div>
         ` : "";
 
@@ -97,7 +97,7 @@ function renderWord(entry) {
         const antItems = antonyms.length ? `
             <div class="word-tags">
                 <span class="tag-label">ant.</span>
-                ${synonyms.map(ant => `<span class="tag" onclick="searchTag("${ant}")">${ant}</span>`).join("")}
+                ${antonyms.map(ant => `<span class="tag" data-lookup="${ant}")">${ant}</span>`).join("")}
             </div>
         ` : "";
 
@@ -114,7 +114,7 @@ function renderWord(entry) {
     const sourceItems = sourceUrl ? `
         <section class="section-divider"></section>
         <div>
-            <svg></svg>
+            <img src="" alt="">
             Source: <a href="${sourceUrl}" target="_blank">${sourceUrl}</a>
         </div>
     ` : "";
@@ -125,8 +125,8 @@ function renderWord(entry) {
                 <div class="word-title">${entry.word}</div>
                 <div class="word-phonetic">
                     ${phonetic ? `<span class="phonetic-text">${phonetic}</span>` : ""}
-                    ${phonetic ? `<button class="play-btn">
-                        <svg></svg>
+                    ${audioUrl ? `<button class="play-btn" id="play-btn">
+                        <img src="" alt="">
                         Pronounce
                     </button>` : ""}
                 </div>
@@ -134,7 +134,7 @@ function renderWord(entry) {
 
             <div class="word-actions">
                 <button class="icon-btn ${favoriteWord ? "liked" : ""}" id="fav-btn" title="${favoriteWord ? "Remove from saved" : "Save word"}">
-                    <svg><svg/>
+                    <img src="" alt="">
                 </button>
             </div>
         </div>
@@ -183,15 +183,13 @@ function toggleFav() {
 
     localStorage.setItem("wordly_favs", JSON.stringify(favorites));
     updateFavBadge();
+    renderFavWords();
 
     const favBtn = document.getElementById("fav-btn");
 
     if (favBtn) {
         const favoriteWord = favorites.some(fav => fav.word === currentWord.word);
         favBtn.classList.toggle("liked", favoriteWord);
-        // favBtn.innerHTML = `
-        //     ${favoriteWord}
-        // `;
     }
 }
 
@@ -216,21 +214,21 @@ function renderFavWords() {
         return;
     } 
         
-    list.innerHTML =  `<div class="fav-grid></div>` + favorites.map((fav, i)`
-        <div class="fav-item" onclick="searchFav(${fav.phonetic})">
+    list.innerHTML =  `<div class="fav-grid></div>` + favorites.map((fav, i) =>`
+        <div class="fav-item" data-word="${fav.word}">
             <div>
                 <div class="fav-item-word">${fav.word}</div>
                 ${fav.phonetic ? `<div class="fav-item-phonetic">${fav.phonetic}</div>` : ""}
             </div>
 
             ${fav.pos ? `<span class="fav-item-pos">${fav.pos}</span>` : ""}
-            <button class="fav-remove" data-idx="${i})" title="Remove">x</button>
+            <button class="fav-remove" data-idx="${i}" title="Remove">x</button>
         </div>
     `).join("") + "</div>";
 
     list.querySelectorAll(".fav-item").forEach(item => {
         item.addEventListener("click", () => {
-            lookupFav(item.dataset.word)
+            searchFav(item.dataset.word)
         });
     })
 
@@ -244,7 +242,7 @@ function renderFavWords() {
 
 function removeFav(i) {
     favorites.splice(i, 1);
-    localStorage.setItem("wordly-favs", JSON.stringify(favorites));
+    localStorage.setItem("fav-words", JSON.stringify(favorites));
     updateFavBadge();
     renderFavWords();
 }

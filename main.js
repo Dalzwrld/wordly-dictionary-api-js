@@ -217,7 +217,7 @@ function renderFavWords() {
             </div>
 
             ${fav.pos ? `<span class="fav-item-pos">${fav.pos}</span>` : ""}
-            <button class="fav-remove" data-idx="${i}" title="Remove"><img src="images/icons8-trash-24.png" alt="Trash icon"></button>
+            <button class="fav-remove" data-idx="${i}" title="Remove"><img src="images/icons8-trash-24.png" alt="Trash icon" style="color: var(--secondary-text-color);"></button>
         </div>
     `).join("") + `</div>`;
 
